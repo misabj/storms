@@ -1,0 +1,17 @@
+USE storms;
+
+CREATE TABLE IF NOT EXISTS inquiries (
+  id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  category ENUM('APARTMENT','COMMERCIAL','LUXURY') NOT NULL,
+  name VARCHAR(160) NOT NULL,
+  email VARCHAR(190) NOT NULL,
+  phone VARCHAR(80) NOT NULL DEFAULT '',
+  message TEXT NOT NULL,
+  locale ENUM('sr','en') NOT NULL DEFAULT 'sr',
+  sourcePath VARCHAR(255) NOT NULL DEFAULT '/kontakt',
+  status ENUM('NEW','READ','ARCHIVED') NOT NULL DEFAULT 'NEW',
+  createdAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updatedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  INDEX idx_inquiries_status_date (status, createdAt),
+  INDEX idx_inquiries_category_date (category, createdAt)
+) ENGINE=InnoDB;

@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# STORMS
 
-## Getting Started
+Premium real-estate / property development platform built with Next.js App Router, TypeScript and MySQL/MariaDB.
 
-First, run the development server:
+## Local development
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+1. Copy `.env.example` to `.env.local` and fill in the database and security values.
+2. Run `database/schema.sql`, then optionally `database/seed.sql` in MySQL/MariaDB.
+3. Generate the admin password hash:
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+   ```bash
+   node -e "require('bcryptjs').hash('replace-this-password',12).then(console.log)"
+   ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Install and start:
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-## Learn More
+When database variables are absent, public pages use an in-code preview dataset so design review remains possible. All admin mutations require a configured database.
 
-To learn more about Next.js, take a look at the following resources:
+## Production / cPanel
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Set the environment variables from `.env.example`, run the schema, and deploy with Node.js 20+. Build using `npm run build`. The project emits Next.js standalone output; start it with `node .next/standalone/server.js`. Copy `public` and `.next/static` alongside the standalone bundle when the hosting panel does not do this automatically.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Uploaded files are validated and stored under `public/uploads/projects`. Configure persistent storage and backups for that directory. The upload route is isolated so it can later be replaced with S3 or Cloudinary without changing project data.
 
-## Deploy on Vercel
+## Bilingual content
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Public pages are available under `/sr` and `/en`. Run `database/migrations/001_bilingual_content.sql` on an existing installation; fresh installations already include the English project columns in `database/schema.sql`. Serbian and English project copy can be edited in the same admin project form.
