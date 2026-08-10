@@ -6,7 +6,6 @@ const nextConfig: NextConfig = {
       { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
-  output: "standalone",
 };
 
 export default nextConfig;
