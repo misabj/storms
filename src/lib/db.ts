@@ -3,6 +3,7 @@ import mysql, { type Pool } from "mysql2/promise";
 let pool: Pool | null = null;
 
 const databaseEnv = () => ({
+  url: process.env.DATABASE_URL,
   host: process.env.DATABASE_HOST || process.env.TIDB_HOST,
   port: process.env.DATABASE_PORT || process.env.TIDB_PORT || "3306",
   database: process.env.DATABASE_NAME || process.env.TIDB_DATABASE,
@@ -12,21 +13,22 @@ const databaseEnv = () => ({
 
 export function databaseConfigured() {
   const env = databaseEnv();
-  return Boolean(env.host && env.database && env.user);
+  return Boolean(env.url || (env.host && env.database && env.user));
 }
 
 export function getPool() {
   const env = databaseEnv();
   if (!databaseConfigured()) throw new Error("MySQL nije podešen. Popunite DATABASE_* ili TIDB_* promenljive.");
   if (!pool) {
-    const sslEnabled = process.env.DATABASE_SSL === "true" || process.env.TIDB_ENABLE_SSL === "true" || Boolean(process.env.TIDB_HOST);
+    const sslEnabled = process.env.DATABASE_SSL === "true" || process.env.TIDB_ENABLE_SSL === "true" || Boolean(env.url || process.env.TIDB_HOST);
     const ca = (process.env.DATABASE_CA || process.env.TIDB_CA)?.replace(/\\n/g, "\n");
     pool = mysql.createPool({
-      host: env.host,
-      port: Number(env.port),
+      uri: env.url,
+      host: env.url ? undefined : env.host,
+      port: env.url ? undefined : Number(env.port),
       database: env.database,
-      user: env.user,
-      password: env.password,
+      user: env.url ? undefined : env.user,
+      password: env.url ? undefined : env.password,
       ssl: sslEnabled ? { minVersion: "TLSv1.2", rejectUnauthorized: true, ca } : undefined,
       waitForConnections: true,
       connectionLimit: 10,
