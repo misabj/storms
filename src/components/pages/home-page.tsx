@@ -26,10 +26,10 @@ export async function HomePage({ locale }: { locale: Locale }) {
           {projects.map((project, index) => <div key={project.id} className={index % 3 === 1 ? "md:pt-24" : ""}><ProjectCard project={project} locale={locale} /></div>)}
         </div>
       </section>
-      <section className="bg-[#a34838] text-white">
-        <div className="grid min-h-[720px] md:grid-cols-2">
-          <div className="relative min-h-[420px]"><Image src={projects[0]?.heroImage} alt="STORMS" fill sizes="(max-width:900px) 100vw, 50vw" className="object-cover" /></div>
-          <div className="flex flex-col justify-between p-[var(--gutter)] md:p-16 lg:p-24"><p className="eyebrow">{d.follow}</p><h2 className="section-title max-w-2xl py-16">{d.find}</h2><div className="grid gap-0">{[[d.apartments,`${prefix}/prodaja-stanova`],[d.shops,`${prefix}/poslovni-prostori`],[d.luxury,`${prefix}/lux-stanovi`]].map(([label,href])=><Link href={href} key={href} className="group flex items-center justify-between border-t border-white/35 py-5 text-2xl"><span>{label}</span><span className="transition-transform group-hover:translate-x-2">→</span></Link>)}</div></div>
+      <section className="border-y border-black/15 bg-[#ded9cf] text-[#171816]">
+        <div className="grid min-h-[720px] md:grid-cols-[1.08fr_.92fr]">
+          <div className="relative min-h-[420px] overflow-hidden"><Image src={projects[0]?.heroImage} alt="STORMS" fill sizes="(max-width:900px) 100vw, 54vw" className="object-cover" /><div className="absolute inset-0 bg-gradient-to-t from-black/25 via-transparent to-transparent" /></div>
+          <div className="flex flex-col justify-between border-black/15 p-[var(--gutter)] md:border-l md:p-16 lg:p-24"><div><p className="eyebrow text-[#a34838]">{d.follow}</p><h2 className="section-title max-w-2xl py-14 md:py-16">{d.find}</h2></div><div className="grid gap-0 border-b border-black/20">{[[d.apartments,`${prefix}/prodaja-stanova`],[d.shops,`${prefix}/poslovni-prostori`],[d.luxury,`${prefix}/lux-stanovi`]].map(([label,href],index)=><Link href={href} key={href} className="group grid grid-cols-[auto_1fr_auto] items-center gap-5 border-t border-black/20 py-5 text-2xl"><span className="eyebrow text-black/35">0{index+1}</span><span>{label}</span><span className="grid h-10 w-10 place-items-center rounded-full border border-black/25 transition-all group-hover:border-[#a34838] group-hover:bg-[#a34838] group-hover:text-white">↗</span></Link>)}</div></div>
         </div>
       </section>
     </main>

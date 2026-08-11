@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { Menu, X } from "lucide-react";
+import { LogIn, Menu, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 import type { Project } from "@/types";
@@ -45,6 +45,7 @@ export function Header({ projects, overlay = false, locale = "sr", dark = false 
         <Link className="eyebrow whitespace-nowrap" href={`${prefix}/o-nama`}>{d.nav.about}</Link>
         <Link className="eyebrow whitespace-nowrap" href={`${prefix}/kontakt`}>{d.nav.contact}</Link>
         <Link className="eyebrow border-l border-current/20 pl-4 opacity-65 hover:opacity-100" href={alternate}>{locale === "sr" ? "EN" : "SR"}</Link>
+        <Link aria-label={locale === "sr" ? "Admin prijava" : "Admin login"} className="flex h-9 items-center gap-2 rounded-full border border-current/25 px-4 text-[9px] font-bold uppercase tracking-[.16em] transition hover:border-[#a34838] hover:bg-[#a34838] hover:text-white" href="/admin/login"><LogIn size={13} strokeWidth={1.8}/><span>Login</span></Link>
       </nav>
       <button aria-label={open ? "Zatvori meni" : "Otvori meni"} aria-expanded={open} onClick={() => setOpen(!open)} className={`relative z-50 rounded-full p-2 lg:hidden ${solid ? dark ? "bg-white/10" : "bg-black/5" : "bg-black/30 text-white backdrop-blur-sm"}`}>{open ? <X /> : <Menu />}</button>
     </div>
@@ -70,7 +71,7 @@ export function Header({ projects, overlay = false, locale = "sr", dark = false 
           </Link>)}
           {[ [d.nav.completed,`${prefix}/izvedeni-projekti`], [d.nav.about,`${prefix}/o-nama`], [d.nav.contact,`${prefix}/kontakt`] ].map(([label, href], index) => <Link onClick={() => setOpen(false)} key={href} href={href} className={`group flex min-w-0 items-center justify-between gap-5 border-t py-4 sm:py-5 ${dark ? "border-white/15" : "border-black/15"}`}><span className="min-w-0 break-words text-xl tracking-[-.025em] sm:text-2xl">{label}</span><span className={`eyebrow shrink-0 ${dark ? "text-white/35" : "text-black/35"}`}>0{index + 4} ↗</span></Link>)}
         </div>
-        <div className={`mt-auto flex items-end justify-between gap-6 border-t pb-2 pt-7 ${dark ? "border-white/15" : "border-black/15"}`}><div><p className={`eyebrow mb-2 ${dark ? "text-white/35" : "text-black/35"}`}>STORMS</p><p className={`max-w-[240px] text-sm ${dark ? "text-white/55" : "text-black/55"}`}>{locale === "sr" ? "Arhitektura. Izgradnja. Vrednost." : "Architecture. Construction. Value."}</p></div><Link onClick={() => setOpen(false)} href={alternate} className={`eyebrow shrink-0 rounded-full border px-5 py-4 ${dark ? "border-white/20" : "border-black/20"}`}>{locale === "sr" ? "EN" : "SR"}</Link></div>
+        <div className={`mt-auto flex items-end justify-between gap-6 border-t pb-2 pt-7 ${dark ? "border-white/15" : "border-black/15"}`}><div><p className={`eyebrow mb-2 ${dark ? "text-white/35" : "text-black/35"}`}>STORMS</p><p className={`max-w-[240px] text-sm ${dark ? "text-white/55" : "text-black/55"}`}>{locale === "sr" ? "Arhitektura. Izgradnja. Vrednost." : "Architecture. Construction. Value."}</p></div><div className="flex shrink-0 gap-2"><Link onClick={() => setOpen(false)} href={alternate} className={`eyebrow rounded-full border px-5 py-4 ${dark ? "border-white/20" : "border-black/20"}`}>{locale === "sr" ? "EN" : "SR"}</Link><Link onClick={() => setOpen(false)} href="/admin/login" aria-label={locale === "sr" ? "Admin prijava" : "Admin login"} className="grid h-[45px] w-[45px] place-items-center rounded-full border border-[#a34838] bg-[#a34838] text-white"><LogIn size={16} strokeWidth={1.7}/></Link></div></div>
       </nav>
     </div>
   </header>;
