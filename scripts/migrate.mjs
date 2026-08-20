@@ -1,11 +1,13 @@
-// One-off migration runner. Reads .env.local and applies unit media + rooms schema.
-// Usage: node scripts/migrate.mjs
+// Idempotent migration runner for existing local and production databases.
+// Usage: npm run db:migrate
+// Optional: set ENV_FILE=.env.production.local to load another local env file.
 import { readFileSync } from "node:fs";
 import mysql from "mysql2/promise";
 
 function loadEnv() {
   try {
-    const raw = readFileSync(new URL("../.env.local", import.meta.url), "utf8");
+    const envFile = process.env.ENV_FILE || ".env.local";
+    const raw = readFileSync(new URL(`../${envFile}`, import.meta.url), "utf8");
     for (const line of raw.split(/\r?\n/)) {
       const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/i);
       if (!m) continue;
@@ -43,6 +45,10 @@ if (!names.includes("floorPlanImage")) {
   await conn.query("ALTER TABLE units ADD COLUMN floorPlanImage VARCHAR(500) NULL AFTER image");
   console.log("+ added units.floorPlanImage");
 }
+if (!names.includes("pricePerSquareMeter")) {
+  await conn.query("ALTER TABLE units ADD COLUMN pricePerSquareMeter DECIMAL(12,2) NULL AFTER price");
+  console.log("+ added units.pricePerSquareMeter");
+}
 
 await conn.query(`CREATE TABLE IF NOT EXISTS unit_rooms (
   id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -57,5 +63,32 @@ console.log("+ ensured unit_rooms table");
 
 const [check] = await conn.query("SHOW TABLES LIKE 'unit_rooms'");
 console.log("unit_rooms exists:", check.length > 0);
+
+const [teamColumns] = await conn.query("SHOW COLUMNS FROM team_members");
+const teamColumnNames = teamColumns.map((column) => column.Field);
+if (!teamColumnNames.includes("department")) {
+  await conn.query(`ALTER TABLE team_members
+    ADD COLUMN department ENUM('DIRECTORS','ARCHITECTS','CONSTRUCTION','ADMINISTRATION')
+    NOT NULL DEFAULT 'ADMINISTRATION' AFTER role`);
+  await conn.query(`UPDATE team_members
+    SET department = CASE
+      WHEN LOWER(role) LIKE '%direktor%' OR LOWER(role) LIKE '%director%' THEN 'DIRECTORS'
+      WHEN LOWER(role) LIKE '%arhitekt%' OR LOWER(role) LIKE '%architect%' THEN 'ARCHITECTS'
+      WHEN LOWER(role) LIKE '%građev%' OR LOWER(role) LIKE '%gradjev%' OR LOWER(role) LIKE '%inženjer%' OR LOWER(role) LIKE '%engineer%' THEN 'CONSTRUCTION'
+      ELSE 'ADMINISTRATION'
+    END`);
+  console.log("+ added and populated team_members.department");
+}
+
+const [projectColumns] = await conn.query("SHOW COLUMNS FROM projects");
+const projectColumnNames = projectColumns.map((column) => column.Field);
+if (!projectColumnNames.includes("phase")) {
+  await conn.query(`ALTER TABLE projects
+    ADD COLUMN phase ENUM('DESIGN','CONSTRUCTION','COMPLETED')
+    NOT NULL DEFAULT 'CONSTRUCTION' AFTER status`);
+  await conn.query("UPDATE projects SET phase = 'COMPLETED' WHERE status = 'COMPLETED'");
+  console.log("+ added and populated projects.phase");
+}
+
 await conn.end();
 console.log("Migration done.");
