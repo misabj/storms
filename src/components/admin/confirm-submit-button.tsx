@@ -38,7 +38,7 @@ export function ConfirmSubmitButton({
             <p className="mt-3 text-sm leading-relaxed text-black/60">{message}</p>
             <div className="mt-7 flex justify-end gap-3">
               <button type="button" onClick={() => setOpen(false)} className="button border-black/15 bg-white text-black">Odustani</button>
-              <button type="submit" onClick={() => setOpen(false)} className="button border-red-800 bg-red-800 text-white">{confirmLabel}</button>
+              <button type="submit" className="button border-red-800 bg-red-800 text-white">{confirmLabel}</button>
             </div>
           </div>
         </div>
