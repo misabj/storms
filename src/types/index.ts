@@ -1,6 +1,8 @@
 export type ProjectCategory = "APARTMENT" | "COMMERCIAL" | "LUXURY";
 export type ProjectStatus = "DRAFT" | "ACTIVE" | "COMPLETED";
+export type ProjectPhase = "DESIGN" | "CONSTRUCTION" | "COMPLETED";
 export type UnitStatus = "AVAILABLE" | "RESERVED" | "SOLD";
+export type TeamDepartment = "DIRECTORS" | "ARCHITECTS" | "CONSTRUCTION" | "ADMINISTRATION";
 
 export interface ProjectImage {
   id: number;
@@ -19,11 +21,19 @@ export interface Unit {
   area: number;
   orientation: string;
   price: number | null;
+  pricePerSquareMeter?: number | null;
   showPrice: boolean;
   status: UnitStatus;
   description?: string;
   image?: string;
   floorPlanImage?: string;
+  roomAreas?: UnitRoom[];
+}
+
+export interface UnitRoom {
+  id: number;
+  name: string;
+  area: number;
 }
 
 export interface FloorPlan {
@@ -38,6 +48,7 @@ export interface Project {
   id: number;
   category: ProjectCategory;
   status: ProjectStatus;
+  phase?: ProjectPhase;
   title: string;
   subtitle: string;
   slug: string;
@@ -71,6 +82,7 @@ export interface TeamMember {
   id: number;
   name: string;
   role: string;
+  department?: TeamDepartment;
   photo: string;
   description?: string;
   sortOrder: number;

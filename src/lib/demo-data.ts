@@ -35,7 +35,7 @@ export const demoProjects: Project[] = [
     mapAddress: "Dobračina 21, Beograd", latitude: 44.8218, longitude: 20.4619, featured: true, showInNavigation: true, sortOrder: 1,
     images: projectVisuals(1,"dobracina-21","Dobračina 21"),
     units: [
-      { id: 1, name: "Stan A01", unitNumber: "A01", floor: "2. sprat", rooms: 3, area: 78.5, orientation: "Istok / Zapad", price: 320000, showPrice: true, status: "AVAILABLE", image: images.dorcol },
+      { id: 1, name: "Stan A01", unitNumber: "A01", floor: "2. sprat", rooms: 3, area: 78.5, orientation: "Istok / Zapad", price: 320000, showPrice: true, status: "AVAILABLE", image: images.dorcol, floorPlanImage: asset("dobracina-21","plan-2d"), roomAreas: [{ id: 11, name: "Dnevna soba", area: 28.4 }, { id: 12, name: "Spavaća soba", area: 16.2 }, { id: 13, name: "Kupatilo", area: 5.9 }, { id: 14, name: "Hodnik i ostava", area: 12 }, { id: 15, name: "Terasa", area: 16 }] },
       { id: 2, name: "Stan A04", unitNumber: "A04", floor: "4. sprat", rooms: 4, area: 112, orientation: "Jug / Istok", price: null, showPrice: false, status: "AVAILABLE", image: images.dobra },
     ], floorPlans: projectPlans(1,"dobracina-21"),
   },

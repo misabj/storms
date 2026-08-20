@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Bodoni_Moda, Manrope } from "next/font/google";
+import { RouteScrollReset } from "@/components/layout/route-scroll-reset";
 import "./globals.css";
 
 const manrope = Manrope({ subsets: ["latin", "latin-ext", "cyrillic"], variable: "--font-manrope", display: "swap" });
@@ -12,5 +13,5 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="sr" className={`${manrope.variable} ${bodoni.variable}`}><body>{children}</body></html>;
+  return <html lang="sr" data-scroll-behavior="smooth" className={`${manrope.variable} ${bodoni.variable}`}><body><RouteScrollReset />{children}</body></html>;
 }

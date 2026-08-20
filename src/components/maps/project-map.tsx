@@ -18,7 +18,7 @@ export function ProjectMap({ address, className = "", dark = false }: ProjectMap
       <iframe
         title={`Mapa — ${address}`}
         src={src}
-        className={`absolute inset-0 block h-full w-full border-0 ${dark ? "grayscale-[.12] invert-[.9] hue-rotate-180 saturate-[1.35] brightness-[.62] contrast-[1.35]" : ""}`}
+        className={`absolute inset-0 block h-full w-full border-0 ${dark ? "grayscale invert-[.92] sepia-[.18] hue-rotate-[165deg] brightness-[.5] contrast-[1.35] saturate-[.45]" : ""}`}
         loading="lazy"
         referrerPolicy="no-referrer-when-downgrade"
         allowFullScreen

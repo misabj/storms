@@ -8,7 +8,8 @@ export function ProjectForm({project}:{project?:Project}){
     <section className="grid gap-5 border border-black/10 bg-white p-6 md:grid-cols-2 md:p-8">
       <h2 className="col-span-full text-2xl">Osnovno — SR</h2>
       <div className="form-field"><label>Kategorija</label><select name="category" defaultValue={project?.category||"APARTMENT"}><option value="APARTMENT">Prodaja stanova</option><option value="COMMERCIAL">Poslovni prostor</option><option value="LUXURY">Lux stan</option></select></div>
-      <div className="form-field"><label>Status</label><select name="status" defaultValue={project?.status||"DRAFT"}><option value="DRAFT">Draft</option><option value="ACTIVE">Active</option><option value="COMPLETED">Completed</option></select></div>
+      <div className="form-field"><label>Objavljivanje</label><select name="status" defaultValue={project?.status||"DRAFT"}><option value="DRAFT">Draft / skriven</option><option value="ACTIVE">Aktivan / objavljen</option><option value="COMPLETED">Izvedeni projekat</option></select></div>
+      <div className="form-field"><label>Faza projekta</label><select name="phase" defaultValue={project?.phase || (project?.status === "COMPLETED" ? "COMPLETED" : "CONSTRUCTION")}><option value="DESIGN">Projektovanje</option><option value="CONSTRUCTION">Izgradnja</option><option value="COMPLETED">Završen objekat</option></select></div>
       <div className="form-field"><label>H1 / Naziv</label><input name="title" defaultValue={project?.title} required/></div><div className="form-field"><label>H2 / Podnaslov</label><input name="subtitle" defaultValue={project?.subtitle}/></div>
       <div className="form-field col-span-full"><label>Slug</label><input name="slug" defaultValue={project?.slug} pattern="[a-z0-9-]+" required/></div>
       <div className="form-field col-span-full"><label>Kratak opis</label><textarea name="shortDescription" rows={3} defaultValue={project?.shortDescription}/></div>

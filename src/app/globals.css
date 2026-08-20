@@ -37,6 +37,7 @@ img { display: block; }
 .lux-theme { --background: #11110f; --surface: #1a1916; --foreground: #eee9df; --muted: #aaa395; --border: rgba(238,233,223,.18); --accent: #b99a63; background: var(--background); color: var(--foreground); }
 .lux-theme .eyebrow { color: #bca16f; }
 .lux-gold { color: #c6aa73; }
+.units-section + .related-projects { padding-top: 3rem; }
 
 .reveal { animation: reveal .9s both cubic-bezier(.2,.75,.2,1); }
 @keyframes reveal { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: none; } }
@@ -55,6 +56,82 @@ img { display: block; }
   :root { --header-height: 72px; }
   .display { font-size: clamp(2.8rem, 12.5vw, 5.2rem); line-height: .92; }
   .section-title { overflow-wrap: anywhere; line-height: .95; }
+}
+
+/* Client-approved phone layouts. Everything in this block stops before tablet/desktop. */
+@media (max-width: 767px) {
+  :root { --gutter: 20px; }
+
+  .display { font-size: clamp(3rem, 13.5vw, 4.65rem); line-height: .9; }
+  .section-title { font-size: clamp(2.65rem, 12vw, 4rem); }
+  .lede { font-size: clamp(1.85rem, 8.2vw, 2.7rem); line-height: 1.06; }
+
+  /* Home */
+  .home-intro { gap: 3.25rem; padding-block: 7.5rem; }
+  .home-intro .lede { max-width: 100%; }
+  .home-project-list { padding-bottom: 7rem; }
+  .home-project-list > div:first-child { margin-bottom: 3rem; }
+  .home-projects { gap: 4.75rem; }
+  .home-projects .image-shell { aspect-ratio: 4 / 3; }
+  .home-offer > div { min-height: 0; }
+  .home-offer > div > div:first-child { min-height: 390px; }
+  .home-offer > div > div:last-child { min-height: 590px; padding-block: 4.5rem; }
+  .home-offer .section-title { padding-block: 3.5rem; }
+
+  /* Category listings */
+  .category-intro { padding-top: 6.5rem; padding-bottom: 6rem; }
+  .category-intro > p:last-child { margin-top: 2.5rem; font-size: 1.12rem; }
+  .category-projects { gap: 5rem; padding-bottom: 7rem; }
+  .category-project-map { display: none; }
+  .category-projects article > div:first-child { display: block; }
+  .category-projects .image-shell { display: block; width: 100%; aspect-ratio: 4 / 3; }
+
+  /* Luxury collection: the image and copy remain one compact card on phones. */
+  .luxury-collection { padding-bottom: 5rem; }
+  .luxury-collection__frame { min-height: 0; }
+  .luxury-collection__frame > div:first-child { min-height: 565px; }
+  .luxury-collection__frame > div:first-child h2 { font-size: clamp(3.1rem, 15vw, 4.7rem); }
+  .luxury-collection__details { padding: 1.75rem; }
+  .luxury-collection__controls { display: none; }
+  .lux-category-location .container { padding-top: 5.5rem; padding-bottom: 5.5rem; }
+
+  /* Project details */
+  .project-hero { height: 92svh; min-height: 620px; }
+  .project-hero .container { padding-bottom: 2.5rem; }
+  .project-about > div:first-child { padding: 5rem var(--gutter); }
+  .project-about > div:first-child .lede { font-size: clamp(1.9rem, 8vw, 2.65rem); }
+  .project-about > div:last-child { min-height: 430px; }
+  .project-about iframe { min-height: 0; }
+  .project-gallery > div:first-child { aspect-ratio: 3 / 2; }
+  .project-gallery > div:last-child { gap: .5rem; }
+  .project-gallery > div:last-child > button { flex-basis: calc((100% - 1rem) / 3); }
+  .project-information { gap: 2.75rem; padding-block: 5rem; }
+  .project-information dl { display: flex; flex-direction: column; }
+  .project-information [data-info="location"] { order: 1; }
+  .project-information [data-info="city"] { order: 2; }
+  .project-information [data-info="status"] { order: 3; }
+  .project-information [data-info="type"] { order: 4; }
+  .project-information dd { font-family: var(--font-manrope), Arial, sans-serif; font-size: 1.55rem; letter-spacing: -.03em; }
+  .project-plans { padding-block: 6rem; }
+  .project-plans--luxury .project-plans__heading { display: none; }
+  .floor-plan-viewer > div:first-child { aspect-ratio: 1 / 1; }
+  .floor-plan-viewer > div:first-child img { padding: .75rem; }
+  .floor-plan-viewer h3 { font-size: 1.65rem; }
+  .related-projects { padding-top: 3rem; padding-bottom: 7rem; }
+  .related-projects > div:last-child { gap: 4.5rem; }
+  .related-projects .image-shell { aspect-ratio: 4 / 3; }
+
+  /* Footer */
+  .site-footer__main { min-height: 760px; align-items: start; gap: 0; padding-top: 5rem; padding-bottom: 4rem; }
+  .site-footer__brand { display: block; }
+  .site-footer__logo { width: 150px; }
+  .site-footer__tagline { display: block; margin-top: 3.25rem; font-size: 1.05rem; }
+  .site-footer__nav { display: grid; gap: 1rem; margin-top: 4.25rem; font-size: .95rem; font-weight: 400; letter-spacing: -.01em; text-transform: none; }
+  .site-footer__contact-link { display: none; }
+  .site-footer__contact { margin-top: 4.25rem; }
+  .site-footer__socials { display: none; }
+  .site-footer__bottom { flex-wrap: nowrap; gap: .65rem; padding-block: 1rem; font-size: 8px; letter-spacing: .12em; }
+  .site-footer__bottom > div a:first-child { display: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -1,34 +1,49 @@
 import Image from "next/image";
 import { Building2, Compass, Gem, Ruler } from "lucide-react";
+import { Instagram, Linkedin } from "@/components/layout/social-icons";
 import { PublicShell } from "@/components/layout/public-shell";
 import { ProjectCard } from "@/components/projects/project-card";
 import { ProjectMap } from "@/components/maps/project-map";
 import { ContactForm } from "@/components/contact/contact-form";
-import { getCompletedProjects, getSettings } from "@/repositories/projects";
+import { getCompletedProjects, getSettings, getTeam } from "@/repositories/projects";
 import { dictionary, localizeProject, type Locale } from "@/lib/i18n";
 
 export async function CompletedPage({ locale }: { locale: Locale }) {
   const projects = (await getCompletedProjects()).map((project) => localizeProject(project, locale));
   return <PublicShell locale={locale}><main className="pt-[var(--header-height)]">
     <header className="container grid gap-10 pb-20 pt-20 md:grid-cols-[1.6fr_.7fr] md:items-end md:pb-32 md:pt-28"><div><p className="eyebrow mb-8">{dictionary[locale].common.portfolio}</p><h1 className="display">{locale === "sr" ? <>Izvedeni<br />projekti.</> : <>Completed<br />projects.</>}</h1></div><div className="border-t border-black/20 pt-5"><p className="font-[var(--font-editorial)] text-6xl">{String(projects.length).padStart(2,"0")}</p><p className="mt-4 max-w-sm leading-relaxed text-black/55">{locale === "sr" ? "Realizovane zgrade, rezidencije i poslovni prostori koji potvrđuju naš standard kroz vreme." : "Completed buildings, residences and commercial spaces that demonstrate our standard over time."}</p></div></header>
-    <section className="container grid gap-x-8 gap-y-20 pb-36 md:grid-cols-2">{projects.map((project, index) => <div key={project.id} className={index % 3 === 0 ? "md:col-span-2" : ""}><ProjectCard project={project} large={index % 3 === 0} locale={locale} /></div>)}</section>
+    <section className="container grid gap-x-8 gap-y-16 pb-36 md:grid-cols-2 md:gap-y-24">{projects.map((project) => <ProjectCard project={project} large key={project.id} locale={locale} />)}</section>
   </main></PublicShell>;
 }
 
 export async function AboutPage({ locale }: { locale: Locale }) {
-  const [settings, rawCompleted] = await Promise.all([getSettings(), getCompletedProjects()]);
+  const [settings, rawCompleted, team] = await Promise.all([getSettings(), getCompletedProjects(), getTeam()]);
   const completed = rawCompleted.map((project) => localizeProject(project, locale));
   const sr = locale === "sr";
   const title = sr ? settings.aboutTitle : "We build value that endures";
   const subtitle = sr ? settings.aboutSubtitle : "Precision in every detail";
   const description = sr ? settings.aboutDescription : "STORMS is an investment and construction company dedicated to creating contemporary spaces of exceptional quality. From each location to the final detail, every project is shaped with equal care for architecture, function and lasting value.";
   const process = sr ? [["01","Lokacija","Biramo adrese sa jasnom dugoročnom vrednošću i prirodnim mestom u gradu."],["02","Arhitektura","Razvijamo precizne koncepte u kojima su prostor, svetlo i materijal jedna celina."],["03","Izgradnja","Kontrolišemo kvalitet izvođenja, rokove i svaki vidljiv i nevidljiv detalj."],["04","Život","Projekat završavamo tek kada prostor postane pouzdan okvir za svakodnevni život."]] : [["01","Location","We select addresses with enduring value and a natural place in the city."],["02","Architecture","We develop precise concepts where space, light and material form one whole."],["03","Construction","We control workmanship, timelines and every visible and invisible detail."],["04","Life","A project is complete when the space becomes a dependable setting for daily life."]];
+  const teamDepartments = [
+    ["DIRECTORS", sr ? "Direktori" : "Directors"],
+    ["ARCHITECTS", sr ? "Arhitekte" : "Architects"],
+    ["CONSTRUCTION", sr ? "Građevina" : "Construction"],
+    ["ADMINISTRATION", sr ? "Administracija" : "Administration"],
+  ] as const;
+  const inferDepartment = (role: string) => {
+    const normalized = role.toLocaleLowerCase("sr");
+    if (normalized.includes("direktor") || normalized.includes("osnivač")) return "DIRECTORS";
+    if (normalized.includes("arhitekt")) return "ARCHITECTS";
+    if (normalized.includes("izgrad") || normalized.includes("građ")) return "CONSTRUCTION";
+    return "ADMINISTRATION";
+  };
   return <PublicShell locale={locale}><main className="pt-[var(--header-height)]">
     <section className="container pb-20 pt-20 md:pb-32 md:pt-28"><p className="eyebrow mb-8">{dictionary[locale].nav.about}</p><h1 className="display max-w-[1300px]">{title}</h1></section>
     <div className="relative h-[62svh] min-h-[520px] md:h-[76vh]"><Image src="/images/about/material-studio.png" alt={sr?"STORMS studio materijala":"STORMS material studio"} fill priority quality={95} sizes="100vw" className="object-cover" /></div>
     <section className="container grid gap-12 py-24 md:grid-cols-[.7fr_2fr] md:py-40"><p className="eyebrow pt-2">{subtitle}</p><div><p className="lede">{description}</p><div className="mt-16 grid gap-8 border-t border-black/15 pt-8 sm:grid-cols-3">{[["20+",sr?"godina iskustva":"years of experience"],["120k",sr?"m² realizovano":"m² delivered"],["04",sr?"faze kontrole":"control stages"]].map(([number,label])=><div key={label}><p className="font-[var(--font-editorial)] text-5xl">{number}</p><p className="eyebrow mt-3 text-black/40">{label}</p></div>)}</div></div></section>
     <section className="border-y border-black/15 bg-[#e8e5de]"><div className="container grid gap-16 py-24 md:grid-cols-[.8fr_1.55fr] md:py-40"><div className="md:pr-10"><p className="eyebrow mb-8 text-[#a34838]">{sr?"Naš standard":"Our standard"}</p><h2 className="section-title max-w-xl">{sr?"Vrednost se gradi detaljem.":"Value is built through detail."}</h2><p className="mt-8 max-w-sm leading-relaxed text-black/55">{sr?"Tri principa koja vode svaku odluku — od prve skice do poslednjeg vidljivog spoja.":"Three principles guide every decision — from the first sketch to the final visible joint."}</p></div><div className="grid gap-4">{[[Ruler,sr?"Preciznost":"Precision",sr?"Od projekta do završne obrade, odluke donosimo na osnovu kvaliteta koji se može izmeriti.":"From concept to finish, decisions are grounded in measurable quality."],[Compass,sr?"Kontekst":"Context",sr?"Svaka zgrada odgovara svojoj ulici, susedstvu i načinu života koji podržava.":"Every building responds to its street, neighbourhood and the life it supports."],[Gem,sr?"Materijal":"Material",sr?"Biramo trajne, taktilne materijale koji dostojanstveno stare.":"We select lasting, tactile materials that age with dignity."]].map(([Icon,title,copy],index)=><article key={String(title)} className="grid grid-cols-[auto_1fr_auto] gap-5 border border-black/15 bg-[#f2f0eb] p-6 md:gap-8 md:p-8"><span className="grid h-12 w-12 place-items-center rounded-full border border-[#a34838]/35 text-[#a34838]"><Icon size={23} strokeWidth={1.35}/></span><div><h3 className="font-[var(--font-editorial)] text-3xl">{String(title)}</h3><p className="mt-3 max-w-lg leading-relaxed text-black/55">{String(copy)}</p></div><span className="eyebrow pt-2 text-black/25">0{index+1}</span></article>)}</div></div></section>
     <section className="container py-24 md:py-40"><div className="mb-14 grid gap-8 border-t border-black/20 pt-5 md:grid-cols-2"><p className="eyebrow">{sr?"Kako radimo":"How we work"}</p><h2 className="section-title">{sr?"Od adrese do ključa.":"From address to key."}</h2></div><div className="grid gap-0 md:grid-cols-4">{process.map(([number,name,copy])=><article key={number} className="border-t border-black/15 py-7 md:border-l md:border-t-0 md:px-7"><p className="eyebrow text-[#a34838]">{number}</p><h3 className="mt-8 font-[var(--font-editorial)] text-3xl">{name}</h3><p className="mt-5 leading-relaxed text-black/55">{copy}</p></article>)}</div></section>
+    {team.length > 0 && <section className="border-y border-black/15 bg-[#e8e5de]"><div className="container py-24 md:py-36"><div className="mb-14 grid gap-8 border-t border-black/20 pt-5 md:grid-cols-2"><p className="eyebrow">{sr ? "Ljudi iza STORMS-a" : "The people behind STORMS"}</p><h2 className="section-title">{sr ? "Naš tim" : "Our team"}</h2></div><div className="grid gap-16">{teamDepartments.map(([department,label]) => {const members=team.filter((member)=>(member.department || inferDepartment(member.role))===department);return members.length ? <div key={department}><h3 className="eyebrow mb-6 border-t border-black/20 pt-4 text-black/50">{label}</h3><div className="grid grid-cols-2 gap-x-5 gap-y-10 sm:grid-cols-3 lg:grid-cols-5">{members.map((member) => <article key={member.id} className="group"><div className="relative aspect-[4/5] overflow-hidden bg-[#d6d3cc]"><Image src={member.photo} alt={member.name} fill sizes="(max-width:640px) 50vw, (max-width:1024px) 33vw, 20vw" className="object-cover grayscale transition duration-700 group-hover:scale-[1.03] group-hover:grayscale-0" /></div><h4 className="mt-4 font-[var(--font-editorial)] text-2xl leading-tight">{member.name}</h4><p className="eyebrow mt-2 text-black/45">{member.role}</p></article>)}</div></div> : null;})}</div></div></section>}
     {completed.length > 0 && <section className="container pb-36"><div className="mb-12 flex items-end justify-between border-t border-black/20 pt-5"><div><p className="eyebrow mb-5">{sr?"Dokaz u prostoru":"Built proof"}</p><h2 className="section-title">{dictionary[locale].nav.completed}</h2></div><Building2 className="hidden text-black/20 sm:block" size={44} strokeWidth={1}/></div><div className="grid gap-10 md:grid-cols-2">{completed.slice(0,2).map((project) => <ProjectCard project={project} large key={project.id} locale={locale} />)}</div></section>}
   </main></PublicShell>;
 }
@@ -38,9 +53,16 @@ export async function ContactPage({ locale }: { locale: Locale }) {
   const sr = locale === "sr";
   const heading = sr ? settings.contactHeading : "Let us discuss a place made to last.";
   const copy = sr ? settings.contactText : "For information about our projects, available residences and partnerships, our team is at your disposal.";
+  const cleanHeading = heading.replace(/\.$/, "");
+  const [headingLead, ...headingRestWords] = cleanHeading.split(" ");
+  const headingRest = headingRestWords.join(" ");
+  const socials = [
+    settings.instagram && { Icon: Instagram, href: settings.instagram, label: "Instagram" },
+    settings.linkedin && { Icon: Linkedin, href: settings.linkedin, label: "LinkedIn" },
+  ].filter(Boolean) as { Icon: typeof Instagram; href: string; label: string }[];
   return <PublicShell locale={locale}><main className="pt-[var(--header-height)]">
-    <section className="container pb-20 pt-20 md:pb-28 md:pt-28"><p className="eyebrow mb-8">{dictionary[locale].nav.contact}</p><h1 className="display max-w-[1200px]">{heading}</h1></section>
-    <section className="container grid gap-0 pb-24 md:grid-cols-[.72fr_1.28fr] md:pb-36"><aside className="flex flex-col justify-between border border-black/15 p-[var(--gutter)] md:p-12 lg:p-16"><div><p className="max-w-xl text-lg leading-relaxed text-black/60">{copy}</p><div className="mt-14 grid gap-0 text-xl"><a href={`tel:${settings.phone}`} className="border-t border-black/15 py-5">{settings.phone}</a><a href={`mailto:${settings.email}`} className="border-t border-black/15 py-5">{settings.email}</a><p className="border-y border-black/15 py-5">{settings.address}</p></div></div><p className="eyebrow mt-16 text-black/40">{sr?"Ponedeljak — petak · 09:00 — 17:00":"Monday — Friday · 09:00 — 17:00"}</p></aside><ContactForm locale={locale}/></section>
+    <section className="container pb-20 pt-20 md:pb-28 md:pt-28"><p className="eyebrow mb-8">{dictionary[locale].nav.contact}</p><h1 className="max-w-[1200px]"><span className="display block">{headingLead}</span>{headingRest && <span className="section-title mt-3 block text-black/70">{headingRest}</span>}</h1></section>
+    <section className="container grid gap-0 pb-24 md:grid-cols-[.72fr_1.28fr] md:pb-36"><aside className="flex flex-col justify-between border border-black/15 p-[var(--gutter)] md:p-12 lg:p-16"><div><p className="max-w-xl text-lg leading-relaxed text-black/60">{copy}</p><div className="mt-14 grid gap-0 text-xl"><a href={`tel:${settings.phone}`} className="border-t border-black/15 py-5">{settings.phone}</a><a href={`mailto:${settings.email}`} className="border-t border-black/15 py-5">{settings.email}</a><p className="border-y border-black/15 py-5">{settings.address}</p></div>{socials.length > 0 && <div className="mt-8 flex items-center gap-3">{socials.map(({ Icon, href, label }) => <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label} className="grid h-11 w-11 place-items-center rounded-full border border-black/20 transition hover:border-[#a34838] hover:bg-[#a34838] hover:text-white"><Icon size={18} strokeWidth={1.6} /></a>)}</div>}</div><p className="eyebrow mt-16 text-black/40">{sr?"Ponedeljak — petak · 09:00 — 17:00":"Monday — Friday · 09:00 — 17:00"}</p></aside><ContactForm locale={locale}/></section>
     <section className="grid border-y border-black/15 md:grid-cols-[.65fr_1.35fr]"><div className="p-[var(--gutter)] py-16 md:p-16 lg:p-24"><p className="eyebrow mb-7">{sr?"Naša kancelarija":"Our office"}</p><h2 className="section-title">{settings.address}</h2><p className="mt-8 max-w-sm leading-relaxed text-black/55">{sr?"Zakažite razgovor sa našim prodajnim ili razvojnim timom.":"Arrange a conversation with our sales or development team."}</p></div><ProjectMap address={settings.address} className="min-h-[480px] md:min-h-[650px]"/></section>
   </main></PublicShell>;
 }

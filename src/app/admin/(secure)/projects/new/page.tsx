@@ -1,2 +1,2 @@
 import { ProjectForm } from "@/components/admin/project-form";
-export default function NewProject(){return <><p className="eyebrow mb-4">Projekti</p><h1 className="text-5xl tracking-[-.05em]">Novi projekat</h1><ProjectForm/></>}
+export default function NewProject(){return <><p className="eyebrow mb-4">Projekti</p><h1 className="text-5xl tracking-[-.05em]">Novi projekat</h1><p className="mt-4 max-w-2xl text-sm leading-relaxed text-black/50">Prvo unesite osnovne podatke i sačuvajte. Nakon čuvanja otvoriće se stranica projekta gde možete da dodate <strong>galeriju</strong>, <strong>osnove (2D/3D)</strong> i <strong>stanove/lokale</strong> sa svim detaljima.</p><ProjectForm/></>}

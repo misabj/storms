@@ -23,14 +23,14 @@ export function LuxuryHero({ projects, locale }: { projects: Project[]; locale: 
   const move = (direction: number) => setActive((current) => (current + direction + projects.length) % projects.length);
 
   return (
-    <section className="container pb-20 md:pb-28">
-      <div className="grid min-h-[720px] min-w-0 overflow-hidden border border-white/15 bg-[#171713] lg:grid-cols-[minmax(0,1.55fr)_minmax(330px,.55fr)]">
+    <section className="luxury-collection container pb-20 md:pb-28">
+      <div className="luxury-collection__frame grid min-h-[720px] min-w-0 overflow-hidden border border-white/15 bg-[#171713] lg:grid-cols-[minmax(0,1.55fr)_minmax(330px,.55fr)]">
         <div className="relative min-h-[560px] min-w-0 overflow-hidden lg:min-h-[720px]">
           {projects.map((item, index) => (
-            <div key={item.id} className={`absolute inset-0 transition-all duration-[1400ms] ${index === active ? "scale-100 opacity-100" : "pointer-events-none scale-[1.025] opacity-0"}`} aria-hidden={index !== active}>
+            <Link href={`/${locale}/projekti/${item.slug}`} aria-label={`${d.common.view}: ${item.title}`} key={item.id} className={`absolute inset-0 transition-all duration-[1400ms] ${index === active ? "scale-100 opacity-100" : "pointer-events-none scale-[1.025] opacity-0"}`} aria-hidden={index !== active} tabIndex={index === active ? 0 : -1}>
               <Image src={item.heroImage} alt={item.title} fill priority={index === 0} quality={95} sizes="(max-width: 1024px) 100vw, 72vw" className="object-cover" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/15 to-black/35" />
-            </div>
+            </Link>
           ))}
 
           <div className="absolute inset-x-0 top-0 z-10 flex items-center justify-between p-6 md:p-9">
@@ -44,7 +44,7 @@ export function LuxuryHero({ projects, locale }: { projects: Project[]; locale: 
           </div>
         </div>
 
-        <aside className="flex min-w-0 flex-col justify-between border-t border-white/15 bg-[#1c1c18] p-7 lg:border-l lg:border-t-0 lg:p-9">
+        <aside className="luxury-collection__details flex min-w-0 flex-col justify-between border-t border-white/15 bg-[#1c1c18] p-7 lg:border-l lg:border-t-0 lg:p-9">
           <div>
             <div className="flex items-center justify-between border-b border-white/15 pb-6"><p className="eyebrow text-[#d0ad6b]">{sr ? "Odabrana rezidencija" : "Selected residence"}</p><span className="h-1.5 w-1.5 rounded-full bg-[#d0ad6b]" /></div>
             <p className="mt-9 text-lg leading-relaxed text-white/65">{project.shortDescription}</p>
@@ -54,7 +54,7 @@ export function LuxuryHero({ projects, locale }: { projects: Project[]; locale: 
             </Link>
           </div>
 
-          <div className="mt-12">
+          <div className="luxury-collection__controls mt-12">
             <p className="eyebrow mb-5 text-white/35">{sr ? "Kolekcija" : "Collection"}</p>
             <div className="border-b border-white/15">
               {projects.map((item, index) => <button key={item.id} type="button" onClick={() => setActive(index)} className={`grid w-full cursor-pointer grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-4 border-t py-4 text-left transition ${index === active ? "border-[#d0ad6b]/60 text-white" : "border-white/15 text-white/40 hover:text-white/75"}`}><span className="eyebrow">0{index+1}</span><span className="truncate text-sm">{item.title}</span><span className={`h-1.5 w-1.5 rounded-full ${index === active ? "bg-[#d0ad6b]" : "bg-white/20"}`} /></button>)}
