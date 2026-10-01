@@ -36,6 +36,7 @@ export function Footer({ settings, locale = "sr", dark = false }: { settings: Si
         <p className={`eyebrow ${muted}`}>{locale === "sr" ? "Kontakt" : "Contact"}</p>
         <div className="mt-8 grid gap-4 text-lg">
           <a href={`tel:${settings.phone}`}>{settings.phone}</a>
+          {settings.phoneSecondary && <a href={`tel:${settings.phoneSecondary.replace(/\s/g, "")}`}>{settings.phoneSecondary}</a>}
           <a href={`mailto:${settings.email}`}>{settings.email}</a>
           <p>{settings.address}</p>
         </div>
@@ -48,8 +49,9 @@ export function Footer({ settings, locale = "sr", dark = false }: { settings: Si
     <div className={`site-footer__bottom container flex flex-wrap items-center justify-between gap-3 border-t py-4 text-[10px] uppercase tracking-[.14em] ${line} ${muted}`}>
       <span>© {new Date().getFullYear()} STORMS</span>
       <span>{locale === "sr" ? "Beograd · Srbija" : "Belgrade · Serbia"}</span>
-      <div className="flex gap-5">
+      <div className="flex flex-wrap gap-5">
         <a href={`tel:${settings.phone}`} className="transition hover:text-[#a34838]">{settings.phone}</a>
+        {settings.phoneSecondary && <a href={`tel:${settings.phoneSecondary.replace(/\s/g, "")}`} className="transition hover:text-[#a34838]">{settings.phoneSecondary}</a>}
         <Link href="/admin/login" className="transition hover:text-[#a34838]">{locale === "sr" ? "Administracija" : "Administration"}</Link>
       </div>
     </div>

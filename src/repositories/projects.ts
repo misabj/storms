@@ -8,6 +8,9 @@ const bool = (value: unknown) => Boolean(Number(value));
 
 function baseProject(row: Row): Project {
   return {
+    occupancyPermit: row.occupancyPermit ? String(row.occupancyPermit) : undefined,
+    completedYear: row.completedYear == null ? null : Number(row.completedYear),
+    mapUrl: row.mapUrl ? String(row.mapUrl) : undefined,
     id: Number(row.id), category: String(row.category) as ProjectCategory, status: String(row.status) as ProjectStatus, phase: (row.phase ? String(row.phase) : (String(row.status) === "COMPLETED" ? "COMPLETED" : "CONSTRUCTION")) as ProjectPhase,
     title: String(row.title), subtitle: String(row.subtitle || ""), slug: String(row.slug), shortDescription: String(row.shortDescription || ""), description: String(row.description || ""),
     address: String(row.address || ""), city: String(row.city || ""), locationDescription: String(row.locationDescription || ""), heroImage: String(row.heroImage || ""), mapAddress: String(row.mapAddress || row.address || ""),
@@ -52,7 +55,7 @@ export const getProjects = unstable_cache(readProjects, ["projects"], { tags: ["
 export async function getActiveProjects(category?: ProjectCategory) { return (await getProjects()).filter((p) => p.status === "ACTIVE" && (!category || p.category === category)); }
 export async function getFeaturedProjects() { return (await getProjects()).filter((p) => p.status === "ACTIVE" && p.featured); }
 export async function getCompletedProjects() { return (await getProjects()).filter((p) => p.status === "COMPLETED"); }
-export async function getProjectBySlug(slug: string) { return (await getProjects()).find((p) => p.slug === slug) ?? null; }
+export async function getProjectBySlug(slug: string) { return (await getProjects()).find((p) => p.slug === slug && p.status !== "DRAFT") ?? null; }
 
 function mapTeam(rows: Row[]): TeamMember[] {
   return rows.map((r) => ({ id: Number(r.id), name: String(r.name), role: String(r.role), department: (r.department ? String(r.department) : "ADMINISTRATION") as TeamMember["department"], photo: String(r.photo), description: r.description ? String(r.description) : undefined, sortOrder: Number(r.sortOrder), active: bool(r.active) }));

@@ -49,6 +49,9 @@ export interface Project {
   category: ProjectCategory;
   status: ProjectStatus;
   phase?: ProjectPhase;
+  occupancyPermit?: string;
+  completedYear?: number | null;
+  mapUrl?: string;
   title: string;
   subtitle: string;
   slug: string;
@@ -92,6 +95,9 @@ export interface TeamMember {
 export interface SiteSettings {
   companyName: string;
   phone: string;
+  phoneSecondary?: string;
+  workingHours?: string;
+  workingHoursEn?: string;
   email: string;
   address: string;
   instagram: string;

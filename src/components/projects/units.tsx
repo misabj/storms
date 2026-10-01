@@ -49,7 +49,7 @@ export function Units({ units, locale = "sr", dark = false }: { units: Unit[]; l
               [locale === "sr" ? "Orijentacija" : "Orientation", unit.orientation],
             ].map(([label, value]) => <div key={label} className={`border-t py-4 ${dark ? "border-white/15" : "border-black/15"}`}><dt className="eyebrow mb-2 opacity-40">{label}</dt><dd>{value}</dd></div>)}
           </dl>
-          {unit.showPrice && totalPrice && squareMeterPrice ? <div className="mt-8"><p className="text-2xl">{money(totalPrice)}</p><p className="eyebrow mt-2 opacity-45">{money(squareMeterPrice)} / m²</p></div> : <p className="mt-8 text-2xl">{locale === "sr" ? "Cena na upit" : "Price on request"}</p>}
+          {unit.showPrice && totalPrice && squareMeterPrice ? <div className="mt-8"><p className="eyebrow mb-2 opacity-60">{locale === "sr" ? "Od:" : "From:"}</p><p className="text-2xl">{money(totalPrice)}</p><p className="eyebrow mt-2 opacity-45">{money(squareMeterPrice)} / m²</p></div> : <p className="mt-8 text-2xl">{locale === "sr" ? "Cena na upit" : "Price on request"}</p>}
         </div>
       </article>;
     })}</div>

@@ -3,6 +3,7 @@
 // Optional: set ENV_FILE=.env.production.local to load another local env file.
 import { readFileSync } from "node:fs";
 import mysql from "mysql2/promise";
+import { importClientContent } from "./import-client-content.mjs";
 
 function loadEnv() {
   try {
@@ -88,6 +89,17 @@ if (!projectColumnNames.includes("phase")) {
     NOT NULL DEFAULT 'CONSTRUCTION' AFTER status`);
   await conn.query("UPDATE projects SET phase = 'COMPLETED' WHERE status = 'COMPLETED'");
   console.log("+ added and populated projects.phase");
+}
+
+for (const [name, definition] of Object.entries({ occupancyPermit: "VARCHAR(190) NULL", completedYear: "SMALLINT UNSIGNED NULL", mapUrl: "VARCHAR(500) NULL" })) {
+  if (!projectColumnNames.includes(name)) {
+    await conn.query(`ALTER TABLE projects ADD COLUMN ${name} ${definition}`);
+    console.log(`+ added projects.${name}`);
+  }
+}
+
+if (process.argv.includes("--import-client-content")) {
+  await importClientContent(conn);
 }
 
 await conn.end();

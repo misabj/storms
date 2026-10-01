@@ -22,6 +22,14 @@ export async function LocalizedProjectPage({ slug, locale }: { slug: string; loc
   const categoryLabels = { sr: { APARTMENT: "Stan", COMMERCIAL: "Poslovni prostor", LUXURY: "Lux rezidencija" }, en: { APARTMENT: "Apartment", COMMERCIAL: "Commercial", LUXURY: "Luxury residence" } } as const;
   const statusLabels = { sr: { DESIGN: "Projektovanje", CONSTRUCTION: "Izgradnja", COMPLETED: "Završen objekat" }, en: { DESIGN: "Design", CONSTRUCTION: "Construction", COMPLETED: "Completed" } } as const;
   const plansTitle = luxury ? d.plans : locale === "sr" ? "Osnova tipske etaže" : "Typical floor plan";
+  const completed = project.status === "COMPLETED";
+  const completionLabel = project.occupancyPermit
+    ? (locale === "sr" ? "Upotrebna dozvola" : "Occupancy permit")
+    : project.category === "COMMERCIAL"
+      ? (locale === "sr" ? "Lokal izveden" : "Commercial space completed")
+      : luxury ? (locale === "sr" ? "Rezidencija izvedena" : "Residence completed")
+        : (locale === "sr" ? "Objekat izveden" : "Building completed");
+  const completionValue = project.occupancyPermit || (project.completedYear ? `${project.completedYear}${locale === "sr" ? ". god." : ""}` : d.completed);
 
   return <PublicShell overlay locale={locale} dark={luxury}><main className={luxury ? "lux-theme" : ""}>
     <section className={`project-hero relative text-white ${luxury ? "h-[100svh] min-h-[640px] md:min-h-[760px]" : "h-[90svh] min-h-[600px] md:min-h-[680px]"}`}>
@@ -31,7 +39,7 @@ export async function LocalizedProjectPage({ slug, locale }: { slug: string; loc
     </section>
 
     <section className={`project-about grid border-b md:grid-cols-2 ${luxury ? "border-white/15" : "border-black/15"}`}>
-      <div className={`p-[var(--gutter)] py-20 md:p-16 lg:p-24 ${luxury ? "md:py-40" : ""}`}><p className="eyebrow mb-10">{d.projectAbout}</p><p className="lede">{project.description}</p><p className={`mt-10 max-w-xl text-lg leading-relaxed ${luxury ? "text-[#aaa395]" : "text-black/55"}`}>{project.locationDescription}</p></div>
+      <div className={`p-[var(--gutter)] py-20 md:p-16 lg:p-24 ${luxury ? "md:py-40" : ""}`}><p className="eyebrow mb-10">{d.projectAbout}</p><p className="lede">{project.description}</p><p className={`mt-10 max-w-xl whitespace-pre-line text-lg leading-relaxed ${luxury ? "text-[#aaa395]" : "text-black/55"}`}>{project.locationDescription}</p>{project.mapUrl && <a href={project.mapUrl} target="_blank" rel="noopener noreferrer" className="text-link mt-8"><MapPin size={18} />Google Maps</a>}</div>
       {luxury ? <div className="relative min-h-[520px] md:min-h-[760px]"><Image src={project.images.find((image) => image.type !== "FLOOR_PLAN")?.imagePath || project.heroImage} alt={project.title} fill quality={92} sizes="(max-width: 900px) 100vw, 50vw" className="object-cover" /></div> : <ProjectMap address={project.mapAddress} className="min-h-[480px] md:min-h-[620px]" />}
     </section>
 
@@ -44,9 +52,9 @@ export async function LocalizedProjectPage({ slug, locale }: { slug: string; loc
 
     {project.images.length > 0 && <section id="gallery" className={`scroll-mt-24 ${luxury ? "py-24 md:py-40" : "py-20 md:py-32"}`}><div className={`container mb-10 flex items-end justify-between border-t pt-5 md:mb-12 ${luxury ? "border-white/20" : "border-black/20"}`}><h2 className="section-title">{d.gallery}</h2><span className="eyebrow">{String(project.images.length).padStart(2,"0")}</span></div><Gallery images={project.images} /></section>}
 
-    <section className={`project-information container grid gap-12 border-y py-20 md:grid-cols-[1fr_2fr] md:py-28 ${luxury ? "border-white/15" : "border-black/15"}`}><p className="eyebrow">{d.information}</p><dl className="grid gap-x-8 sm:grid-cols-2">{[[d.location,project.address,"location"],[d.city,project.city,"city"],[d.status,statusLabels[locale][project.phase || (project.status === "COMPLETED" ? "COMPLETED" : "CONSTRUCTION")],"status"],[d.type,categoryLabels[locale][project.category],"type"]].map(([label,value,key]) => <div key={label} data-info={key} className={`border-t py-5 ${luxury ? "border-white/15" : "border-black/15"}`}><dt className="eyebrow mb-3 opacity-40">{label}</dt><dd className="break-words font-[var(--font-editorial)] text-3xl">{value}</dd></div>)}</dl></section>
+    <section className={`project-information container grid gap-12 border-y py-20 md:grid-cols-[1fr_2fr] md:py-28 ${luxury ? "border-white/15" : "border-black/15"}`}><p className="eyebrow">{d.information}</p><dl className="grid min-w-0 gap-x-8 sm:grid-cols-2">{[[d.location,project.address,"location"],[d.city,project.city,"city"],[completed ? completionLabel : d.status,completed ? completionValue : statusLabels[locale][project.phase || "CONSTRUCTION"],"status"],[d.type,completed && project.category === "APARTMENT" ? (locale === "sr" ? "Poslovno-stambeni objekat" : "Mixed-use residential building") : categoryLabels[locale][project.category],"type"]].map(([label,value,key]) => <div key={label} data-info={key} className={`min-w-0 border-t py-5 ${luxury ? "border-white/15" : "border-black/15"}`}><dt className="eyebrow mb-3 opacity-40">{label}</dt><dd className="wrap-anywhere font-[var(--font-editorial)] text-3xl">{value}</dd></div>)}</dl></section>
 
-    {project.floorPlans.length > 0 && <section className={`project-plans container py-24 md:py-40 ${luxury ? "project-plans--luxury" : ""}`}><div className="project-plans__heading mb-14 text-center"><p className="eyebrow mb-5">{luxury ? (locale === "sr" ? "Rezidencija" : "The residence") : ""}</p><h2 className="section-title">{plansTitle}</h2></div><FloorPlanViewer plans={project.floorPlans} dark={luxury} /></section>}
+    {project.floorPlans.length > 0 && <section className={`project-plans container py-24 md:py-40 ${luxury ? "project-plans--luxury" : ""}`}><div className="project-plans__heading mb-14 text-center"><p className="eyebrow mb-5">{luxury ? (locale === "sr" ? "Rezidencija" : "The residence") : ""}</p><h2 className="section-title">{plansTitle}</h2></div>{luxury ? <FloorPlanViewer plans={project.floorPlans} dark /> : <Gallery contained images={project.floorPlans.map((plan) => ({ id: plan.id, imagePath: plan.image, altText: plan.title, type: "FLOOR_PLAN", sortOrder: plan.sortOrder }))} />}</section>}
 
     <Units units={project.units} locale={locale} dark={luxury} />
     {related.length > 0 && <section className="related-projects container py-16 md:py-24"><div className={`mb-12 flex items-end justify-between border-t pt-5 ${luxury ? "border-white/20" : "border-black/20"}`}><h2 className="section-title">{project.status === "COMPLETED" ? d.previous : d.other}</h2><Link href={`/${locale}/izvedeni-projekti`} className="text-link">{d.viewAll}<span>→</span></Link></div><div className="grid gap-12 md:grid-cols-3 md:gap-8">{related.map((item) => <ProjectCard project={item} key={item.id} locale={locale} dark={luxury} />)}</div></section>}

@@ -18,7 +18,7 @@ export async function HomePage({ locale }: { locale: Locale }) {
       <Hero projects={featured.length ? featured : projects} locale={locale} />
       <section className="home-intro container grid gap-12 py-28 md:grid-cols-[1fr_2fr] md:py-44">
         <p className="eyebrow pt-2">{d.statement}</p>
-        <div><h2 className="lede max-w-5xl">{d.intro}</h2><Link className="text-link mt-10" href={`${prefix}/o-nama`}>{d.meet} <span>→</span></Link></div>
+        <div><h2 className="lede max-w-5xl">{d.intro}</h2><p className="mt-8 max-w-3xl text-lg leading-relaxed text-black/60">{d.description}</p><Link className="text-link mt-10" href={`${prefix}/o-nama`}>{d.meet} <span>→</span></Link></div>
       </section>
       <section id="projects" className="home-project-list container scroll-mt-28 pb-32 md:pb-48">
         <div className="mb-12 flex items-end justify-between border-t border-black/20 pt-5"><h2 className="section-title">{d.projects}</h2><span className="eyebrow">{String(projects.length).padStart(2,"0")}</span></div>

@@ -1,0 +1,107 @@
+{
+  "projects": [
+    {
+      "slug": "voje-veljkovica-5", "title": "Voje Veljkovića 5", "category": "APARTMENT", "address": "Voje Veljkovića 5", "city": "Beograd",
+      "occupancyPermit": "ROP-BGDU-31837-IUP-2/2018", "completedYear": null, "mapUrl": "https://maps.app.goo.gl/QMZteendVRSBmGF97",
+      "description": "Savremeni stambeni objekat definisan ekstravagantnom geometrijom i snažnim fasadnim akcentom.",
+      "locationDescription": "Smešten u mirnoj ulici Voje Veljkovića, u neposrednoj blizini raskrsnice Bulevara kralja Aleksandra i Ustaničke ulice, ovaj objekat pruža savršen balans modernog dizajna i izuzetne povezanosti.",
+      "descriptionEn": "A contemporary residential building defined by expressive geometry and a striking facade accent.",
+      "locationDescriptionEn": "Situated on quiet Voje Veljkovića Street, close to the junction of Bulevar kralja Aleksandra and Ustanička Street, this building balances modern design with excellent connections."
+    },
+    {
+      "slug": "borisavljeviceva-67", "title": "Borisavljevićeva 67", "category": "APARTMENT", "address": "Borisavljevićeva 67", "city": "Beograd",
+      "occupancyPermit": "ROP-VOZ-22718-IUP-20/2019", "completedYear": null, "mapUrl": "https://maps.app.goo.gl/7S3VXfTeS5Ex3XRn8",
+      "description": "Ekskluzivan stambeni objekat prefinjene teksture, moćnih vertikalnih formi i savremene estetike.",
+      "locationDescription": "Izveden na izdignutoj poziciji u ulici Borisavljevićeva 67, u neposrednoj blizini Autokomande, pruža savršen mir i otvoren pogled uz odličnu povezanost sa svim delovima grada.",
+      "descriptionEn": "An exclusive residential building with refined textures, strong vertical forms and a contemporary aesthetic.",
+      "locationDescriptionEn": "Built on an elevated site at Borisavljevićeva 67, close to Autokomanda, it offers tranquillity and open views with excellent connections to all parts of the city."
+    },
+    {
+      "slug": "cara-dusana-118", "title": "Cara Dušana 118", "category": "APARTMENT", "address": "Cara Dušana 118", "city": "Zemun",
+      "occupancyPermit": "ROP-BGDU-33735-IUP-4/2018", "completedYear": null, "mapUrl": "https://maps.app.goo.gl/BHPLbk1cPHzvp7Ck8",
+      "description": "Upečatljiv ugaoni objekat minimalističkog dizajna i elegantnih tonova, osmišljen za udoban i kvalitetan život u Zemunu.",
+      "locationDescription": "Pozicioniran u ulici Cara Dušana 118, ovaj objekat spaja odličnu saobraćajnu povezanost sa blizinom Dunava i mirnog okruženja Pregrevice.",
+      "descriptionEn": "A distinctive corner building with minimalist design and elegant tones, conceived for comfortable, quality living in Zemun.",
+      "locationDescriptionEn": "Located at Cara Dušana 118, this building combines excellent transport links with proximity to the Danube and the peaceful surroundings of Pregrevica."
+    },
+    {
+      "slug": "cara-dusana-122", "title": "Cara Dušana 122", "category": "APARTMENT", "address": "Cara Dušana 122", "city": "Zemun",
+      "occupancyPermit": "ROP-BGDU-34408-IUPH-31/2025", "completedYear": null, "mapUrl": "https://maps.app.goo.gl/p5cw5uzJQRJAsh7w7",
+      "description": "Arhitektura sa dualitetom forme: puls grada na frontu, intimna oaza u dvorištu.",
+      "locationDescription": "Stambeni kompleks, izveden u prometnoj ulici Cara Dušana u Zemunu, obuhvata uličnu i dvorišnu zgradu blizu sportskog centra Vizura i mirne Pregrevice.",
+      "descriptionEn": "Architecture with a dual character: the city's pulse at the front, an intimate oasis in the courtyard.",
+      "locationDescriptionEn": "Built on busy Cara Dušana Street in Zemun, the residential complex comprises a street-facing and a courtyard building near the Vizura sports centre and peaceful Pregrevica."
+    },
+    {
+      "slug": "dobrovoljacka-2v", "title": "Dobrovoljačka 2V", "category": "APARTMENT", "address": "Dobrovoljačka 2V", "city": "Zemun",
+      "occupancyPermit": "ROP-ZEM-26094-IUPH-22/2025", "completedYear": null, "mapUrl": "https://maps.app.goo.gl/KUsrtWrKG6WBWavC9",
+      "description": "Moderna arhitektonska ekspresija u pečenoj opeci: rešenje koje vertikalnom ritmikom i taktilnošću odaje počast istorijskom duhu Zemuna.",
+      "locationDescription": "Smešten na adresi Dobrovoljačka 2V, u neposrednoj blizini Gardoša, objekat zauzima intiman položaj u mirnoj ulici koja diskretno povezuje potez Glavne i Cara Dušana s Ugrinovačkom.",
+      "descriptionEn": "A modern architectural expression in fired brick, whose vertical rhythm and tactile character pay tribute to the historic spirit of Zemun.",
+      "locationDescriptionEn": "Located at Dobrovoljačka 2V near Gardoš, the building occupies an intimate position on a quiet street linking Glavna and Cara Dušana with Ugrinovačka."
+    },
+    {
+      "slug": "novogradska-61", "title": "Novogradska 61", "category": "APARTMENT", "address": "Novogradska 61", "city": "Zemun",
+      "occupancyPermit": null, "completedYear": 2019, "mapUrl": "https://maps.app.goo.gl/CYXe956bcVs2mv8Z6",
+      "description": "Savremeni arhitektonski kubus čiste geometrije, definisan kontrastom tonova i akcentovanom bazom.",
+      "locationDescription": "Smešten na dominantnoj poziciji u Novogradskoj 61, mirnoj zemunskoj ulici koja spaja Prvomajsku i Ugrinovačku. Objekat nudi impresivne panoramske vizure prema Donjem gradu Zemuna i širem gradskom horizontu.",
+      "descriptionEn": "A contemporary architectural cube of pure geometry, defined by contrasting tones and an accentuated base.",
+      "locationDescriptionEn": "Occupying a prominent position at Novogradska 61, a quiet Zemun street connecting Prvomajska and Ugrinovačka, the building offers impressive panoramic views towards lower Zemun and the wider city skyline."
+    },
+    {
+      "slug": "svetotrojcina-33", "title": "Svetotrojčina 33", "category": "APARTMENT", "address": "Svetotrojčina 33", "city": "Zemun",
+      "occupancyPermit": "ROP-BGDU-4676-IUPH-40/2025", "completedYear": null, "mapUrl": "https://maps.app.goo.gl/PZXGs2KDuJ8pSgVM7",
+      "description": "Sinergija robusne fasadne geometrije i intimne dvorišne oaze osmišljene za savremeni stil života.",
+      "locationDescription": "Smešten na adresi Svetotrojčina 33, na samoj raskrsnici sa Ugrinovačkom, pruža odličnu saobraćajnu povezanost sa ostatkom grada, dok u neposrednom zaleđu otvara miran pogled na Zemunov stadion.",
+      "descriptionEn": "A synergy of robust facade geometry and an intimate courtyard oasis designed for contemporary living.",
+      "locationDescriptionEn": "Located at Svetotrojčina 33, at the junction with Ugrinovačka, it offers excellent connections to the rest of the city and peaceful views towards Zemun Stadium at the rear."
+    },
+    {
+      "slug": "ugrinovacka-92", "title": "Ugrinovačka 92", "category": "APARTMENT", "address": "Ugrinovačka 92", "city": "Zemun",
+      "occupancyPermit": null, "completedYear": 2026, "mapUrl": "https://maps.app.goo.gl/suXDZks7FQ67BW1C9",
+      "description": "Savremeni ugaoni volumen koji svojom materijalizacijom i formom arhitektonski upotpunjuje i unapređuje zatečeni blok.",
+      "locationDescription": "Smešten na ugaonoj poziciji u Ugrinovačkoj 92, u samom srcu Gornjeg grada Zemuna, objekat se organski nastavlja na postojeću zgradu pospešujući prostorni kontinuitet, sa otvorenim pogledom na sportski kompleks Zemunovog stadiona u neposrednom zaleđu.",
+      "descriptionEn": "A contemporary corner volume whose materials and form complete and enhance the existing urban block.",
+      "locationDescriptionEn": "Situated on a corner at Ugrinovačka 92, in the heart of upper Zemun, the building extends the existing structure naturally, reinforcing spatial continuity with open views towards the Zemun Stadium sports complex at the rear."
+    },
+    {
+      "slug": "europrofil-cara-dusana-122", "title": "Europrofil", "category": "COMMERCIAL", "address": "Cara Dušana 122", "city": "Zemun",
+      "occupancyPermit": null, "completedYear": 2023, "mapUrl": "https://maps.app.goo.gl/K6BiRmH5cAWDzpqA8",
+      "description": "Inovativan dupleks lokal osmišljen kao izložbeni prostor vrhunskih materijala i profilnih sistema Europrofila.",
+      "locationDescription": "Izložbeni salon Europrofila, na adresi Cara Dušana 122, Zemun, prostire se na dva nivoa:\n\nPrizemlje (izložbena zona): interaktivni displeji, raznovrsni profili, uzorci sistema osvetljenja, klizni sistemi i bravarija.\n\nGornja etaža (ekskluzivna izložbena zona i projektni biro): uzorci kliznih sistema većih formata i prostor za tehničke konsultacije, prezentacije materijala i razradu detalja na projektima.",
+      "descriptionEn": "An innovative duplex commercial space designed to showcase Europrofil's premium materials and profile systems.",
+      "locationDescriptionEn": "The Europrofil showroom at Cara Dušana 122, Zemun, spans two levels.\n\nGround floor (exhibition area): interactive displays, a variety of profiles, lighting samples, sliding systems and metalwork.\n\nUpper floor (exclusive exhibition area and design office): larger-format sliding system samples and space for technical consultations, material presentations and project detailing."
+    },
+    {
+      "slug": "stab-novogradska-61", "title": "Štab", "category": "COMMERCIAL", "address": "Novogradska 61", "city": "Zemun",
+      "occupancyPermit": null, "completedYear": 2022, "mapUrl": "https://maps.app.goo.gl/YzMPLw7bTZNp8qGB6",
+      "description": "Prostor ugostiteljskog lokala sa karakterom, koji spaja sirovu estetiku, tematske retro detalje i prigušenu ambijentalnu svetlost.",
+      "locationDescription": "Savremeni ugostiteljski prostor restorana ŠTAB je usklađene estetike, sa stilskim enterijerom i prostranom baštom, opremljen kvalitetnim nameštajem i opremom i sa ugodnim ambijentom za dnevna i večernja okupljanja. Prostor čine bašta i javna sala sa šankom na prizemnom nivou i sala privatnijeg ambijenta i kuhinja na donjem nivou.",
+      "descriptionEn": "A hospitality space with character, combining a raw aesthetic, themed retro details and subdued ambient lighting.",
+      "locationDescriptionEn": "ŠTAB restaurant combines a cohesive aesthetic, a stylish interior and a spacious garden, with quality furniture and equipment in a welcoming setting for daytime and evening gatherings. The garden and main dining room with a bar occupy the ground floor, while a more intimate room and the kitchen are on the lower level."
+    },
+    {
+      "slug": "ordinacija-o2-dobrovoljacka-2v", "title": "Ordinacija O2", "titleEn": "O2 Clinic", "category": "COMMERCIAL", "address": "Dobrovoljačka 2V", "city": "Zemun",
+      "occupancyPermit": null, "completedYear": 2025, "mapUrl": "https://maps.app.goo.gl/KUsrtWrKG6WBWavC9",
+      "description": "Elegancija i sterilnost u službi zdravlja: prostor pročišćene geometrije i ugodne atmosfere.",
+      "locationDescription": "Savremeni medicinski enterijer definisan toplim nijansama, elegantnim detaljima i pažljivo osmišljenim osvetljenjem. Lokal je prilagođen najvišim standardima, pruža maksimalan komfor i osigurava ugodan boravak pacijentima kroz moderan nameštaj i ergonomski opremljene radne prostore.",
+      "descriptionEn": "Elegance and sterility in the service of health: a space of pure geometry and a welcoming atmosphere.",
+      "locationDescriptionEn": "A contemporary medical interior defined by warm tones, elegant details and carefully considered lighting. Designed to the highest standards, the premises provide comfort for patients through modern furniture and ergonomically equipped workspaces."
+    }
+  ],
+  "team": [
+    { "name": "Ranko Markanović", "role": "dipl. inž.", "department": "DIRECTORS", "photo": "" },
+    { "name": "Predrag Macura", "role": "dipl. inž.", "department": "DIRECTORS", "photo": "" },
+    { "name": "Marta Novaković", "role": "dipl. ekon.", "department": "ADMINISTRATION", "photo": "" },
+    { "name": "Jelena Joksimović", "role": "dipl. inž. arh.", "department": "ARCHITECTS", "photo": "" },
+    { "name": "Magadalena Mladenović", "role": "mast. inž. arh.", "department": "ARCHITECTS", "photo": "" },
+    { "name": "Nikola Markanović", "role": "mast. inž. arh.", "department": "ARCHITECTS", "photo": "" },
+    { "name": "Dušan Timotijević", "role": "dipl. inž. građ.", "department": "CONSTRUCTION", "photo": "" }
+  ],
+  "settings": {
+    "phone": "+381 65 30 7577", "phoneSecondary": "+381 63 33 6907",
+    "address": "Cara Dušana 118", "workingHours": "Svaki radni dan od 8 do 16 h", "workingHoursEn": "Monday to Friday, 8 am to 4 pm",
+    "linkedin": "https://www.linkedin.com/in/storms-d-o-o-b22048440/",
+    "instagram": "https://www.instagram.com/storms.rs?stkn=MXFubTc1Y3ViNmJscA%3D%3D"
+  }
+}

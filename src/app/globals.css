@@ -113,7 +113,7 @@ img { display: block; }
   .project-information [data-info="type"] { order: 4; }
   .project-information dd { font-family: var(--font-manrope), Arial, sans-serif; font-size: 1.55rem; letter-spacing: -.03em; }
   .project-plans { padding-block: 6rem; }
-  .project-plans--luxury .project-plans__heading { display: none; }
+  .project-plans--luxury .project-plans__heading { margin-bottom: 2rem; }
   .floor-plan-viewer > div:first-child { aspect-ratio: 1 / 1; }
   .floor-plan-viewer > div:first-child img { padding: .75rem; }
   .floor-plan-viewer h3 { font-size: 1.65rem; }

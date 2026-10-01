@@ -1,4 +1,5 @@
 import type { Project, SiteSettings, TeamMember } from "@/types";
+import clientContent from "./client-content.json";
 
 const images = {
   dobra: "/images/projects/dobracina-21/hero-v2.png",
@@ -26,7 +27,7 @@ const projectPlans=(id:number,slug:string)=>[
   {id:id*10+5,title:"3D prostorni prikaz",image:asset(slug,"plan-3d"),sortOrder:2},
 ];
 
-export const demoProjects: Project[] = [
+const sampleProjects: Project[] = [
   {
     id: 1, category: "APARTMENT", status: "ACTIVE", title: "Dobračina 21", subtitle: "Savremeni ritam Dorćola", slug: "dobracina-21",
     shortDescription: "Promišljeno stanovanje u istorijskom jezgru Beograda.",
@@ -86,15 +87,37 @@ export const demoProjects: Project[] = [
   },
 ];
 
-export const demoTeam: TeamMember[] = [
-  { id: 1, name: "Aleksandar Stojanović", role: "Osnivač i direktor", photo: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&w=1200&q=85", sortOrder: 1, active: true },
-  { id: 2, name: "Milica Ristić", role: "Direktorka razvoja", photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=1200&q=85", sortOrder: 2, active: true },
-  { id: 3, name: "Nikola Marković", role: "Rukovodilac izgradnje", photo: "https://images.unsplash.com/photo-1568602471122-7832951cc4c5?auto=format&fit=crop&w=1200&q=85", sortOrder: 3, active: true },
+export const demoProjects: Project[] = [
+  ...sampleProjects.filter((project) => project.status !== "COMPLETED"),
+  ...clientContent.projects.map((project, index): Project => ({
+    ...project,
+    id: 100 + index,
+    category: project.category as Project["category"],
+    status: "COMPLETED",
+    phase: "COMPLETED",
+    occupancyPermit: project.occupancyPermit || undefined,
+    subtitle: "",
+    shortDescription: project.description,
+    shortDescriptionEn: project.descriptionEn,
+    heroImage: `/images/projects/${project.slug}/hero.webp`,
+    mapAddress: `${project.address}, ${project.city}, Srbija`,
+    featured: false,
+    showInNavigation: false,
+    sortOrder: 100 + index,
+    images: [{ id: 1000 + index, imagePath: `/images/projects/${project.slug}/hero.webp`, altText: project.title, type: project.category === "COMMERCIAL" ? "INTERIOR" : "EXTERIOR", sortOrder: 1 }],
+    units: [],
+    floorPlans: [],
+  })),
 ];
 
+export const demoTeam: TeamMember[] = clientContent.team.map((member, index) => ({
+  ...member, id: index + 1, department: member.department as TeamMember["department"], sortOrder: index + 1, active: true,
+}));
+
 export const demoSettings: SiteSettings = {
-  companyName: "STORMS", phone: "+381 11 455 20 20", email: "office@storms.rs", address: "Beograd, Srbija", instagram: "https://instagram.com", linkedin: "https://linkedin.com", facebook: "",
+  companyName: "STORMS", email: "office@storms.rs", facebook: "",
   contactHeading: "Razgovarajmo o prostoru koji ostaje.", contactText: "Za informacije o projektima, dostupnim jedinicama i saradnji, naš tim vam je na raspolaganju.",
   aboutTitle: "Gradimo vrednost koja traje", aboutSubtitle: "Preciznost u svakom detalju", aboutDescription: "STORMS je investiciona i građevinska kompanija posvećena stvaranju savremenih prostora visokog kvaliteta. Od izbora lokacije do poslednjeg detalja, svaki projekat razvijamo sa istom pažnjom prema arhitekturi, funkciji i dugoročnoj vrednosti.",
   aboutImage: "/images/about/material-studio.png", footerText: "Arhitektura. Izgradnja. Vrednost.",
+  ...clientContent.settings,
 };
