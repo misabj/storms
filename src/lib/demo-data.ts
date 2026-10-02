@@ -100,7 +100,7 @@ export const demoProjects: Project[] = [
     shortDescription: project.description,
     shortDescriptionEn: project.descriptionEn,
     heroImage: `/images/projects/${project.slug}/hero.webp`,
-    mapAddress: `${project.address}, ${project.city}, Srbija`,
+    mapAddress: ("mapAddress" in project && project.mapAddress) || `${project.address}, ${project.city}, Srbija`,
     featured: false,
     showInNavigation: false,
     sortOrder: 100 + index,

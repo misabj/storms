@@ -3,7 +3,7 @@
 // Optional: set ENV_FILE=.env.production.local to load another local env file.
 import { readFileSync } from "node:fs";
 import mysql from "mysql2/promise";
-import { importClientContent } from "./import-client-content.mjs";
+import { applyClientContentCorrections, applyClientMapLinkCorrections, importClientContent } from "./import-client-content.mjs";
 
 function loadEnv() {
   try {
@@ -101,6 +101,8 @@ for (const [name, definition] of Object.entries({ occupancyPermit: "VARCHAR(190)
 if (process.argv.includes("--import-client-content")) {
   await importClientContent(conn);
 }
+await applyClientContentCorrections(conn);
+await applyClientMapLinkCorrections(conn);
 
 await conn.end();
 console.log("Migration done.");

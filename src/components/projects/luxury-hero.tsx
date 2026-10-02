@@ -3,12 +3,13 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, ArrowUpRight, MapPin } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { Project } from "@/types";
 import { dictionary, type Locale } from "@/lib/i18n";
 
 export function LuxuryHero({ projects, locale }: { projects: Project[]; locale: Locale }) {
   const [active, setActive] = useState(0);
+  const touchStart = useRef<number | null>(null);
   const d = dictionary[locale];
   const sr = locale === "sr";
 
@@ -24,7 +25,7 @@ export function LuxuryHero({ projects, locale }: { projects: Project[]; locale: 
 
   return (
     <section className="luxury-collection container pb-20 md:pb-28">
-      <div className="luxury-collection__frame grid min-h-[720px] min-w-0 overflow-hidden border border-white/15 bg-[#171713] lg:grid-cols-[minmax(0,1.55fr)_minmax(330px,.55fr)]">
+      <div className="luxury-collection__frame grid min-h-[720px] min-w-0 touch-pan-y overflow-hidden border border-white/15 bg-[#171713] lg:grid-cols-[minmax(0,1.55fr)_minmax(330px,.55fr)]" onTouchStart={(event) => touchStart.current = event.touches[0].clientX} onTouchCancel={() => touchStart.current = null} onTouchEnd={(event) => { if (touchStart.current === null) return; const delta = event.changedTouches[0].clientX - touchStart.current; touchStart.current = null; if (Math.abs(delta) < 45) return; event.preventDefault(); move(delta > 0 ? -1 : 1); }}>
         <div className="relative min-h-[560px] min-w-0 overflow-hidden lg:min-h-[720px]">
           {projects.map((item, index) => (
             <Link href={`/${locale}/projekti/${item.slug}`} aria-label={`${d.common.view}: ${item.title}`} key={item.id} className={`absolute inset-0 transition-all duration-[1400ms] ${index === active ? "scale-100 opacity-100" : "pointer-events-none scale-[1.025] opacity-0"}`} aria-hidden={index !== active} tabIndex={index === active ? 0 : -1}>

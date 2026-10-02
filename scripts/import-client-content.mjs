@@ -19,7 +19,7 @@ export async function importClientContent(connection) {
         category: project.category, status: "COMPLETED", phase: "COMPLETED", title: project.title,
         subtitle: "", slug: project.slug, shortDescription: project.description, description: project.description,
         address: project.address, city: project.city, locationDescription: project.locationDescription,
-        heroImage, mapAddress: `${project.address}, ${project.city}, Srbija`, mapUrl: project.mapUrl,
+        heroImage, mapAddress: project.mapAddress || `${project.address}, ${project.city}, Srbija`, mapUrl: project.mapUrl,
         occupancyPermit: project.occupancyPermit, completedYear: project.completedYear,
         featured: false, showInNavigation: false, sortOrder: 100 + index,
         titleEn: project.titleEn || project.title, shortDescriptionEn: project.descriptionEn,
@@ -45,6 +45,39 @@ export async function importClientContent(connection) {
     await connection.execute("INSERT INTO content_migrations (name) VALUES (?)", [migration]);
     await connection.commit();
     console.log(`Imported ${content.projects.length} completed projects, ${content.team.length} team members and contact settings. Active projects preserved.`);
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  }
+}
+
+export async function applyClientContentCorrections(connection) {
+  const migration = "006_cara_dusana_122b_map";
+  await connection.query("CREATE TABLE IF NOT EXISTS content_migrations (name VARCHAR(190) PRIMARY KEY, appliedAt TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP)");
+  const [applied] = await connection.execute("SELECT name FROM content_migrations WHERE name = ?", [migration]);
+  if (applied.length) return;
+  await connection.beginTransaction();
+  try {
+    await connection.query("UPDATE projects SET mapAddress = 'Cara Dušana 122b, Zemun, Srbija' WHERE slug IN ('cara-dusana-122','europrofil-cara-dusana-122')");
+    await connection.execute("INSERT INTO content_migrations (name) VALUES (?)", [migration]);
+    await connection.commit();
+    console.log("+ corrected Cara Dušana 122b project maps");
+  } catch (error) {
+    await connection.rollback();
+    throw error;
+  }
+}
+
+export async function applyClientMapLinkCorrections(connection) {
+  const migration = "007_cara_dusana_122b_map_link";
+  const [applied] = await connection.execute("SELECT name FROM content_migrations WHERE name = ?", [migration]);
+  if (applied.length) return;
+  await connection.beginTransaction();
+  try {
+    await connection.query("UPDATE projects SET mapUrl = 'https://www.google.com/maps/search/?api=1&query=Cara%20Du%C5%A1ana%20122b%2C%20Zemun%2C%20Srbija' WHERE slug IN ('cara-dusana-122','europrofil-cara-dusana-122')");
+    await connection.execute("INSERT INTO content_migrations (name) VALUES (?)", [migration]);
+    await connection.commit();
+    console.log("+ corrected Cara Dušana 122b external map links");
   } catch (error) {
     await connection.rollback();
     throw error;
